@@ -47,3 +47,7 @@ if __name__ == "__main__":
             devices.append({'ip': received.psrc, 'mac': received.hwsrc})
         data_handler.save_data(devices)
         print("Scan complete. Devices saved to data.json.")
+
+    if args.clear:
+        data_handler.delete_data()
+        print("Saved devices cleared.")

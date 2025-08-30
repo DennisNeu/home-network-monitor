@@ -22,3 +22,9 @@ class DataHandler:
         """Save data to a JSON file."""
         with open(self.filename, 'w', encoding="utf-8") as file:
             json.dump(new_data, file, indent=4)
+
+    def delete_data(self):
+        """Delete the JSON file."""
+        if os.path.exists(self.filename):
+            os.remove(self.filename)
+            self.data = []
