@@ -1,6 +1,9 @@
 from scapy.all import ARP, Ether, srp
+from datahandler import Datahandler
 
-target_ip = "192.168.1.0/24"  # adjust to your subnet
+data_handler = Datahandler("data.json")
+
+target_ip = "10.159.134.0/24"  # adjust to your subnet
 arp = ARP(pdst=target_ip)
 ether = Ether(dst="ff:ff:ff:ff:ff:ff")
 packet = ether/arp
@@ -13,3 +16,5 @@ for sent, received in result:
 
 for d in devices:
     print(d)
+
+data_handler.save_data(devices)
