@@ -2,7 +2,7 @@ import json
 import os
 
 
-class Datahandler:
+class DataHandler:
     """A class that handles saving and loading data from a JSON file."""
     def __init__(self, filename: str):
         """Simple init"""

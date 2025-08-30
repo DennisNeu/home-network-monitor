@@ -1,10 +1,10 @@
 from scapy.all import ARP, Ether, srp
-from datahandler import Datahandler
+from datahandler import DataHandler
 
-data_handler = Datahandler("data.json")
+data_handler = DataHandler("data.json")
 
-target_ip = "10.159.134.0/24"  # adjust to your subnet
-arp = ARP(pdst=target_ip)
+TARGET_IP = "10.159.134.0/24"  # adjust to your subnet
+arp = ARP(pdst=TARGET_IP)
 ether = Ether(dst="ff:ff:ff:ff:ff:ff")
 packet = ether/arp
 
