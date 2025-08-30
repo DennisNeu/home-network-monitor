@@ -17,6 +17,6 @@ for sent, received in result:
 for d in devices:
     print(d)
     name = input("Add name: ")
-    d.update({'name': name})
+    d.update({'name': name}) # Its a dict
 
 data_handler.save_data(devices)
