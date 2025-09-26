@@ -3,10 +3,10 @@ from datahandler import DataHandler
 import argparse
 
 data_handler = DataHandler("data.json")
+TARGET_IP = "192.168.178.0/24"  # adjust to your subnet
 
 def network_scan():
     """Function scans network with arp and returns list of found clients"""
-    TARGET_IP = "192.168.178.0/24"  # adjust to your subnet
     arp = ARP(pdst=TARGET_IP)
     ether = Ether(dst="ff:ff:ff:ff:ff:ff")
     packet = ether/arp
@@ -23,10 +23,13 @@ if __name__ == "__main__":
 
     if args.scan:
         scanned_devices = network_scan()
+        network = []
         devices = []
         for sent, received in scanned_devices:
             devices.append({'ip': received.psrc, 'mac': received.hwsrc})
-        data_handler.save_data(devices)
+        entry = {"ip": TARGET_IP, "devices": devices}
+        network.append(entry)
+        data_handler.save_data(network)
         print("Scan complete. Devices saved to data.json.")
 
     if args.clear:
@@ -40,4 +43,4 @@ if __name__ == "__main__":
         else:
             for device in saved_devices:
                 print(device)
-        
+            print("total devices found:", len(saved_devices))        
