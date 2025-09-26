@@ -6,31 +6,12 @@ data_handler = DataHandler("data.json")
 
 def network_scan():
     """Function scans network with arp and returns list of found clients"""
-    TARGET_IP = "10.159.134.0/24"  # adjust to your subnet
+    TARGET_IP = "192.168.178.0/24"  # adjust to your subnet
     arp = ARP(pdst=TARGET_IP)
     ether = Ether(dst="ff:ff:ff:ff:ff:ff")
     packet = ether/arp
 
     return srp(packet, timeout=3, verbose=0)[0]
-
-result = network_scan()
-
-print(result)
-
-# Populate list
-devices = []
-
-# Maybe change data structure to a dict with ip as key and list as value"
-# Dont know why this works
-for sent, received in result:
-    devices.append({'ip': received.psrc, 'mac': received.hwsrc})
-
-for d in devices:
-    print(d)
-   # name = input("Add name: ")
-   # d.update({'name': name}) # Its a dict
-
-data_handler.save_data(devices)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Network Scanner")
@@ -51,3 +32,12 @@ if __name__ == "__main__":
     if args.clear:
         data_handler.delete_data()
         print("Saved devices cleared.")
+
+    if args.list:
+        saved_devices = data_handler.load_data()
+        if not saved_devices:
+            print("No devices found.")
+        else:
+            for device in saved_devices:
+                print(device)
+        

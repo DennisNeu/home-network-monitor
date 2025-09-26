@@ -17,6 +17,7 @@ class DataHandler:
                 self.data = json.load(file)
         else:
             self.data = []
+        return self.data
 
     def save_data(self, new_data):
         """Save data to a JSON file."""
